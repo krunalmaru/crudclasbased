@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render,HttpResponseRedirect
 from .models import User
 from myapp.forms import StudentRegistration
 from django.views.generic.base import View,TemplateView,RedirectView
@@ -11,4 +11,9 @@ class UserAddProfile(TemplateView):
         stud = User.objects.all()
         context = {'stu':stud,'form':fm}
         return context
-
+    
+    def post(self,request):
+        fm = StudentRegistration(request.POST)
+        if fm.is_valid():
+            fm.save()
+            return HttpResponseRedirect('/')
