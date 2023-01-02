@@ -19,5 +19,6 @@ from myapp import views
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('',views.UserAddProfile.as_view(), name='addshow'),
-    path('delete/<int:id>/', views.UserDelete.as_view(),name='delete')
+    path('delete/<int:id>/', views.UserDelete.as_view(),name='delete'),
+    path('<int:id>/', views.UserUpdateView.as_view(),name='update')
 ]
