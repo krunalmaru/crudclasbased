@@ -19,4 +19,5 @@ from myapp import views
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('',views.UserAddProfile.as_view(), name='addshow'),
+    path('delete/<int:id>/', views.UserDelete.as_view(),name='delete')
 ]

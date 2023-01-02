@@ -17,3 +17,12 @@ class UserAddProfile(TemplateView):
         if fm.is_valid():
             fm.save()
             return HttpResponseRedirect('/')
+
+class UserDelete(RedirectView):
+    url = '/'
+    def get_redirect_url(self, *args, **kwargs):
+        myid = kwargs['id']
+        data = User.objects.get(id = myid)
+        data.delete()
+        return super().get_redirect_url(*args, **kwargs)
+
