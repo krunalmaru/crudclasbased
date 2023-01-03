@@ -24,6 +24,7 @@ class UserAddProfile(TemplateView):
 class StudentListView(ListView):
     model = User
     template_name_suffix = '_get'
+    ordering = 'password'
 
 
 
