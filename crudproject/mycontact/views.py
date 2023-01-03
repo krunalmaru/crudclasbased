@@ -1,9 +1,10 @@
 from django.shortcuts import render,HttpResponseRedirect,HttpResponse
-from .forms import ContactForm
+from .forms import ContactForm, StudentForm
 from django import forms
-from django.views.generic.base import TemplateView,View,RedirectView
-from django.views.generic.edit import FormView,CreateView
+from django.views.generic.base import TemplateView,View,RedirectView,TemplateResponseMixin
+from django.views.generic.edit import FormView,CreateView,UpdateView
 from django.views.generic.detail import DetailView 
+from django.views.generic.edit import BaseUpdateView
 from .models import Student
 # Create your views here.
 
@@ -23,18 +24,41 @@ class ContactFormView(FormView):
 class ThankyuTemplatesView(TemplateView):
     template_name = 'mycontact/thankyu.html'
      
+# class StudentCreateView(CreateView):
+#     model = Student
+#     fields = ['id','name','email','password']
+#     # success_url = '/thankyu/'
+#     template_name = 'mycontact/studentform.html'
+
+#     def get_form(self):
+#         form = super().get_form()
+#         form.fields['name'].widget = forms.TextInput(attrs={'class':'myform'})
+#         form.fields['password'].widget = forms.PasswordInput(attrs={'class':'mypass'})
+#         return form
+
+    ''''studentmodelform use'''
 class StudentCreateView(CreateView):
-    model = Student
-    fields = ['id','name','email','password']
+    form_class = StudentForm
+    # fields = ['id','name','email','password']
     # success_url = '/thankyu/'
     template_name = 'mycontact/studentform.html'
 
-    def get_form(self):
-        form = super().get_form()
-        form.fields['name'].widget = forms.TextInput(attrs={'class':'myform'})
-        form.fields['password'].widget = forms.PasswordInput(attrs={'class':'mypass'})
-        return form
-
-
 class StudentDetailView(DetailView):
     model = Student
+
+# class StudentUpdateView(UpdateView):
+#     model = Student
+#     fields = ['id','name','email','password']
+#     success_url = '/thankyu/'
+#     template_name = 'mycontact/studentform.html'
+
+
+class StudentUpdateView(UpdateView):
+    model = Student
+    form_class = StudentForm
+    # fields = ['id','name','email','password']
+    success_url = '/thankupdate/'
+    template_name = 'mycontact/studentform.html'
+
+class ThankTemplatsView(TemplateView):
+    template_name = 'mycontact/thanksupdate.html'
