@@ -3,6 +3,7 @@ from .models import User
 from myapp.forms import StudentRegistration
 from django.views.generic.base import View,TemplateView,RedirectView
 from django.views.generic.list import ListView
+from django.views.generic.detail import DetailView
 from .views import View
 # Create your views here.
 class UserAddProfile(TemplateView):
@@ -20,28 +21,34 @@ class UserAddProfile(TemplateView):
         if fm.is_valid():
             fm.save()
             return HttpResponseRedirect('/')
+            
+class StudentDetailView(DetailView):
+    model = User
+    template_name = 'myapp/user.html'
 
 class StudentListView(ListView):
     model = User
     # template_name_suffix = '_get'
     # ordering = 'password'
-    template_name = 'myapp/user.html'
-    context_object_name = 'user'
+    # template_name = 'myapp/user.html'
+    # context_object_name = 'user'
 
-    def get_queryset(self):
-        return User.objects.filter(name__icontains='L')
     
-    def get_context_data(self,*args, **kwargs):
-        context = super().get_context_data(*args,**kwargs)
-        context['obj'] = User.objects.all().order_by('name')
-        return context
+'''############### list view method  ############'''
+    # def get_queryset(self):
+    #     return User.objects.filter(name__icontains='L')
+    
+    # def get_context_data(self,*args, **kwargs):
+    #     context = super().get_context_data(*args,**kwargs)
+    #     context['obj'] = User.objects.all().order_by('name')
+    #     return context
 
-    def get_template_names(self):
-        if self.request.COOKIES['user'] == 'abhy':
-            template_name = 'myapp/abhy.html'
-        else:
-            template_name = self.template_name
-        return [template_name]
+    # def get_template_names(self):
+    #     if self.request.COOKIES['user'] == 'abhy':
+    #         template_name = 'myapp/abhy.html'
+    #     else:
+    #         template_name = self.template_name
+    #     return [template_name]
 
 class UserDelete(RedirectView):
     url = '/'
