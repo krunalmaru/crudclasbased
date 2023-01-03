@@ -1,8 +1,9 @@
 from django.shortcuts import render,HttpResponseRedirect,HttpResponse
 from .forms import ContactForm
 from django.views.generic.base import TemplateView,View,RedirectView
-from django.views.generic.edit import FormView 
-
+from django.views.generic.edit import FormView,CreateView
+from django.views.generic.detail import DetailView 
+from .models import Student
 # Create your views here.
 
 class ContactFormView(FormView):
@@ -21,3 +22,10 @@ class ContactFormView(FormView):
 class ThankyuTemplatesView(TemplateView):
     template_name = 'mycontact/thankyu.html'
      
+class StudentCreateView(CreateView):
+    model = Student
+    fields = ['id','name','email','password']
+    # success_url = '/thankyu/'
+    template_name = 'mycontact/studentform.html'
+class StudentDetailView(DetailView):
+    model = Student
