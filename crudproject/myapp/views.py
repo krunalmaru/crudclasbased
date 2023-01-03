@@ -2,6 +2,7 @@ from django.shortcuts import render,HttpResponseRedirect
 from .models import User
 from myapp.forms import StudentRegistration
 from django.views.generic.base import View,TemplateView,RedirectView
+from django.views.generic.list import ListView
 from .views import View
 # Create your views here.
 class UserAddProfile(TemplateView):
@@ -13,11 +14,18 @@ class UserAddProfile(TemplateView):
         context = {'stu':stud,'form':fm}
         return context
     
+    
     def post(self,request):
         fm = StudentRegistration(request.POST)
         if fm.is_valid():
             fm.save()
             return HttpResponseRedirect('/')
+
+class StudentListView(ListView):
+    model = User
+    
+
+
 
 class UserDelete(RedirectView):
     url = '/'

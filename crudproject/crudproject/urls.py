@@ -20,5 +20,6 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('',views.UserAddProfile.as_view(), name='addshow'),
     path('delete/<int:id>/', views.UserDelete.as_view(),name='delete'),
-    path('<int:id>/', views.UserUpdateView.as_view(),name='update')
+    path('<int:id>/', views.UserUpdateView.as_view(),name='update'),
+    path('student/', views.StudentListView.as_view(),name='student'),
 ]
