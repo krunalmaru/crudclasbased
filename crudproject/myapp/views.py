@@ -28,6 +28,20 @@ class StudentListView(ListView):
     template_name = 'myapp/user.html'
     context_object_name = 'user'
 
+    def get_queryset(self):
+        return User.objects.filter(name__icontains='L')
+    
+    def get_context_data(self,*args, **kwargs):
+        context = super().get_context_data(*args,**kwargs)
+        context['obj'] = User.objects.all().order_by('name')
+        return context
+
+    def get_template_names(self):
+        if self.request.COOKIES['user'] == 'abhy':
+            template_name = 'myapp/abhy.html'
+        else:
+            template_name = self.template_name
+        return [template_name]
 
 class UserDelete(RedirectView):
     url = '/'

@@ -26,8 +26,18 @@
         </tr>
         {% endfor %}
 
+  
     </tbody>
     </table>
+    <hr>
+    {% for st in obj  %}
+    <tr>    
+        <td>{{st.id}}</td>
+        <td>{{st.name}}</td>
+        <td>{{st.email}}</td>
+        <td>{{st.password}}</td><br>
+    </tr>
+    {% endfor %}
 
 </body>
 </html>
