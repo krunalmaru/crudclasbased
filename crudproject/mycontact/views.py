@@ -2,7 +2,7 @@ from django.shortcuts import render,HttpResponseRedirect,HttpResponse
 from .forms import ContactForm, StudentForm
 from django import forms
 from django.views.generic.base import TemplateView,View,RedirectView,TemplateResponseMixin
-from django.views.generic.edit import FormView,CreateView,UpdateView
+from django.views.generic.edit import FormView,CreateView,UpdateView,DeleteView
 from django.views.generic.detail import DetailView 
 from django.views.generic.edit import BaseUpdateView
 from .models import Student
@@ -21,9 +21,6 @@ class ContactFormView(FormView):
         # return super().form_valid(form)
         return HttpResponse('msg sent')
 
-class ThankyuTemplatesView(TemplateView):
-    template_name = 'mycontact/thankyu.html'
-     
 # class StudentCreateView(CreateView):
 #     model = Student
 #     fields = ['id','name','email','password']
@@ -60,5 +57,17 @@ class StudentUpdateView(UpdateView):
     success_url = '/thankupdate/'
     template_name = 'mycontact/studentform.html'
 
-class ThankTemplatsView(TemplateView):
+class StudentDeleteView(DeleteView):
+    model = Student
+    success_url = '/thanksdelete/'
+
+
+class ThankyuTemplatesView(TemplateView):
+    template_name = 'mycontact/thankyu.html'
+     
+
+class ThankUpdateTemplatsView(TemplateView):
     template_name = 'mycontact/thanksupdate.html'
+
+class ThankDeleteTemplateView(TemplateView):
+    template_name = 'mycontact/thankDelete.html'
