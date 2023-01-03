@@ -23,9 +23,10 @@ class UserAddProfile(TemplateView):
 
 class StudentListView(ListView):
     model = User
-    template_name_suffix = '_get'
-    ordering = 'password'
-
+    # template_name_suffix = '_get'
+    # ordering = 'password'
+    template_name = 'myapp/user.html'
+    context_object_name = 'user'
 
 
 class UserDelete(RedirectView):
